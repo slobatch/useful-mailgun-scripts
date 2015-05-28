@@ -23,8 +23,7 @@ function validate-emails {
   counter=0
   while read line; do
     # echo "Validating $line"
-    json=$(curl -s --user $apiArgument -G "https://api.mailgun.net/v3/address/validate" --data-urlencode address="$line")
-    echo $json > tmp.json
+    curl -s --user $apiArgument -G "https://api.mailgun.net/v3/address/validate" --data-urlencode address="$line" > tmp.json
     isValid=$(jq '.is_valid' tmp.json)
     # echo "isValid $isValid"
     if [[ $isValid == "true" ]]; then
